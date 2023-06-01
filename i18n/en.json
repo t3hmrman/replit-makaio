@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "first": {
+      "body": "This first paragraph is read from i18n/en.json!"
+    },
+    "second": {
+      "body": "The second paragraph is read from i18n/en.json!"
+    }
+  }
+}

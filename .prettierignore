@@ -1,0 +1,6 @@
+docs
+dist
+pnpm-lock.yaml
+vite*
+.devcontainer/
+.github/

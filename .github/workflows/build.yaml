@@ -1,0 +1,46 @@
+name: build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    name: Build application
+    runs-on: ${{ matrix.os }}
+    container: docker.io/node:19.8.1-alpine3.17@sha256:31f511a1df6629e0853968af162a1ea55a80fe07d35a1d1c96a5bca736823097
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-22.04 ]
+        nodejs-version: [ v19.8.1 ]
+
+    steps:
+      # Install deps (this must be done *before* checkout)
+      - run: apk add git
+      - run: npm install -g pnpm
+
+      # Checkout the code
+      - uses: actions/checkout@v3
+      # Disable git safe dirs (https://github.com/actions/runner/issues/2033)
+      - run: git config --global --add safe.directory '*'
+
+      # Install `just` (task runner)
+      - uses: extractions/setup-just@v1
+
+      # Set up the cache
+      - name: cache
+        uses: actions/cache@v2
+        id: build-cache #id to use in retrieve action
+        with:
+          key: ${{ runner.os }}-${{ matrix.os }}-${{ matrix.nodejs-version }}-${{ hashFiles('package.json') }}
+          path: |
+            node_modules
+
+      # Set up the project
+      - run: just setup
+
+      # Run build
+      - run: just build

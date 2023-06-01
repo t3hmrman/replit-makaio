@@ -1,0 +1,14 @@
+{
+  "extends": ["eslint:recommended", "plugin:svelte/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["*.svelte", "*.css"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  }
+}

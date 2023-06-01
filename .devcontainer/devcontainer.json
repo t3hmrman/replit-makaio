@@ -1,0 +1,20 @@
+{
+  "name": "Template Composable Svelte Component",
+  "dockerFile": "Dockerfile",
+  "portsAttributes": {
+    "5173": { "label": "Svelte dev server port" },
+    "4173": { "label": "Svelte preview server port" }
+  },
+  "appPort": [
+    5173,
+    4173
+  ],
+  "onCreateCommand": "pnpm install",
+  "postCreateCommand": "pnpm dev --host",
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.eol": "\n",
+    "prettier.requireConfig": true,
+    "terminal.integrated.shell.linux": "/bin/bash"
+  }
+}
